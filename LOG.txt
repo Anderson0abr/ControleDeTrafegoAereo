@@ -1,0 +1,22 @@
+---------- LOG DE SISTEMA ----------
+
+-Avião criado no Aeroporto aos 0.0110 segundos e finalizado aos 0.0732. Tempo total: 0.0622
+-Avião criado no Ar aos 8.0810 segundos e finalizado aos 10.1565. Tempo total: 2.0755
+-Avião criado no Aeroporto aos 16.1535 segundos e finalizado aos 20.2749. Tempo total: 4.1215
+-Avião criado no Aeroporto aos 24.2179 segundos e finalizado aos 30.3882. Tempo total: 6.1703
+-Avião criado no Ar aos 32.2842 segundos e finalizado aos 40.4966. Tempo total: 8.2124
+-Avião criado no Ar aos 40.3567 segundos e finalizado aos 50.5819. Tempo total: 10.2252
+-Avião criado no Ar aos 48.4257 segundos e finalizado aos 60.6823. Tempo total: 12.2567
+-Avião criado no Ar aos 56.4957 segundos e finalizado aos 70.8258. Tempo total: 14.3301
+-Avião criado no Aeroporto aos 64.5777 segundos e finalizado aos 80.9322. Tempo total: 16.3545
+-Avião criado no Ar aos 72.6411 segundos e finalizado aos 91.0627. Tempo total: 18.4216
+-Avião criado no Aeroporto aos 80.7061 segundos e finalizado aos 101.1239. Tempo total: 20.4178
+-Avião criado no Ar aos 88.7650 segundos e finalizado aos 111.1541. Tempo total: 22.3891
+-Avião criado no Aeroporto aos 96.8450 segundos e finalizado aos 121.2701. Tempo total: 24.4251
+-Avião criado no Ar aos 112.9765 segundos e finalizado aos 131.4336. Tempo total: 18.4572
+-Avião criado no Ar aos 129.1019 segundos e finalizado aos 141.5731. Tempo total: 12.4712
+-Avião criado no Aeroporto aos 104.9245 segundos e finalizado aos 151.6489. Tempo total: 46.7244
+-Avião criado no Ar aos 137.1659 segundos e finalizado aos 161.7097. Tempo total: 24.5438
+-Avião criado no Aeroporto aos 121.0274 segundos e finalizado aos 171.7449. Tempo total: 50.7175
+-Avião criado no Aeroporto aos 145.2444 segundos e finalizado aos 181.8463. Tempo total: 36.6019
+-Avião criado no Aeroporto aos 153.3008 segundos e finalizado aos 191.9652. Tempo total: 38.6644
