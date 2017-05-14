@@ -33,8 +33,11 @@ class Aircraft:
         self.final_time = 0.0
 
     def __str__(self):
-        return "Avião criado no {} aos {:.4f} segundos e removido aos {:.4f}. Tempo total: {:.4f}".format(self.local, self.time_created,
-                                                                                       self.final_time, (self.final_time-self.time_created))
+        return "Avião criado no {} aos {:.4f} segundos e removido aos {:.4f}. Tempo total: {:.4f}".format(self.local,
+                                                                                                          self.time_created,
+                                                                                                          self.final_time,
+                                                                                                          (
+                                                                                                          self.final_time - self.time_created))
 
     def verifica_proximo(self):
         if pista.mutex_pista._value > 0:
@@ -68,35 +71,37 @@ class Aircraft:
 
     def pouso(self):
         pista.adquire_pista()
-        print("{:.4f} - PISTA DE POUSO OCUPADA".format(time() - initial_time))
+        print("-----------------------------------\n{:.4f} - PISTA DE POUSO OCUPADA\n-----------------------------------".format(time() - initial_time))
         pista.mutex_ar.acquire()
         self.final_time = (time() - initial_time)
-        file.write('-'+ self.__str__() + '\n')
+        file.write('-' + self.__str__() + '\n')
         pista.lista_ar.pop()
-        print("{:.4f} - Removido do Ar - Ar[{}] Aeroporto[{}] Total Ar/Aeroporto: {}/{}".format(time() - initial_time, len(pista.lista_ar),
-                                                          len(pista.lista_aeroporto), pista.avioes_do_ar,
-                                                          pista.avioes_do_aeroporto))
-        print(self)
+        print("{:.4f} - Removido do Ar - Fila Ar/Aeroporto [{}]/[{}] - Total Ar/Aeroporto: {}/{}".format(time() - initial_time,
+                                                                                                len(pista.lista_ar),
+                                                                                                len(
+                                                                                                    pista.lista_aeroporto),
+                                                                                                pista.avioes_do_ar,
+                                                                                                pista.avioes_do_aeroporto))
         pista.mutex_ar.release()
         sleep(10)
-        print("{:.4f} - PISTA DE POUSO LIBERADA".format(time() - initial_time))
+        print("-----------------------------------\n{:.4f} - PISTA DE POUSO LIBERADA\n-----------------------------------".format(time() - initial_time))
         pista.libera_pista()
         self.turn.set()
 
     def voo(self):
         pista.adquire_pista()
-        print("{:.4f} - PISTA DE VOO OCUPADA".format(time() - initial_time))
+        print("-----------------------------------\n{:.4f} - PISTA DE VOO OCUPADA\n-----------------------------------".format(time() - initial_time))
         pista.mutex_aeroporto.acquire()
         self.final_time = (time() - initial_time)
         file.write('-' + self.__str__() + '\n')
         pista.lista_aeroporto.pop()
-        print("{:.4f} - Removido do Aeroporto - Ar[{}] Aeroporto[{}] Total Ar/Aeroporto: {}/{}".format(time() - initial_time, len(pista.lista_ar),
-                                                                 len(pista.lista_aeroporto), pista.avioes_do_ar,
-                                                                 pista.avioes_do_aeroporto))
-        print(self)
+        print("{:.4f} - Removido do Aeroporto - Fila Ar/Aeroporto [{}]/[{}] - Total Ar/Aeroporto: {}/{}".format(
+            time() - initial_time, len(pista.lista_ar),
+            len(pista.lista_aeroporto), pista.avioes_do_ar,
+            pista.avioes_do_aeroporto))
         pista.mutex_aeroporto.release()
         sleep(10)
-        print("{:.4f} - PISTA DE VOO LIBERADA".format(time() - initial_time))
+        print("-----------------------------------\n{:.4f} - PISTA DE VOO LIBERADA\n-----------------------------------".format(time() - initial_time))
         pista.libera_pista()
         self.turn.set()
 
@@ -119,10 +124,11 @@ class Track:
             self.avioes_do_aeroporto += 1
             self.lista_aeroporto.append(aviao)
             print(
-                "{:.4f} - Gerado no Aeroporto - Ar[{}] Aeroporto[{}] Total Ar/Aeroporto: {}/{}".format(time() - initial_time, len(pista.lista_ar),
-                                                                 len(pista.lista_aeroporto),
-                                                                 pista.avioes_do_ar,
-                                                                 pista.avioes_do_aeroporto))
+                "{:.4f} - Gerado no Aeroporto - Ar[{}] Aeroporto[{}] Total Ar/Aeroporto: {}/{}".format(
+                    time() - initial_time, len(pista.lista_ar),
+                    len(pista.lista_aeroporto),
+                    pista.avioes_do_ar,
+                    pista.avioes_do_aeroporto))
             self.lista_aeroporto.sort(key=attrgetter("time_created"), reverse=True)
             self.mutex_aeroporto.release()
         else:
@@ -130,9 +136,12 @@ class Track:
             self.avioes_do_ar += 1
             self.lista_ar.append(aviao)
             print(
-                "{:.4f} - Gerado no Ar - Ar[{}] Aeroporto[{}] Total Ar/Aeroporto: {}/{}".format(time() - initial_time, len(pista.lista_ar),
-                                                          len(pista.lista_aeroporto), pista.avioes_do_ar,
-                                                          pista.avioes_do_aeroporto))
+                "{:.4f} - Gerado no Ar - Fila Ar/Aeroporto [{}]/[{}] - Total Ar/Aeroporto: {}/{}".format(time() - initial_time,
+                                                                                                len(pista.lista_ar),
+                                                                                                len(
+                                                                                                    pista.lista_aeroporto),
+                                                                                                pista.avioes_do_ar,
+                                                                                                pista.avioes_do_aeroporto))
 
             self.lista_ar.sort(key=attrgetter("time_created"), reverse=True)
             self.mutex_ar.release()
@@ -178,8 +187,8 @@ def t_avioes(t_aviao):
 initial_time = time()  # Momento em que o programa iniciou
 pista = Track()  # Cria pista
 
-file = open("LOG.txt", 'w') # Cria arquivo de log
-file.write("---------- LOG DE SISTEMA ----------\n\n")
+file = open("LOG.txt", 'w')  # Cria arquivo de log
+file.write("---------- LOG DE EXECUÇÃO ----------\n\n")
 
 thread_geradora = MyThread(geradora, ())  # Instancia thread geradora
 thread_geradora.start()  # Inicia thread geradora
@@ -190,4 +199,4 @@ while pista.avioes_do_aeroporto < 10 or pista.avioes_do_ar < 10 or pista.lista_a
 print("{:.4f}: Fim da execução\n".format(time() - initial_time))
 print("Nenhum avião foi derrubado durante o desenvolvimento desse programa")  # Mensagem importante
 
-file.close() # Fecha arquivo de log
+file.close()  # Fecha arquivo de log
