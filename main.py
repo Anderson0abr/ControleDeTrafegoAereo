@@ -43,25 +43,25 @@ class Aircraft:
         if pista.mutex_pista._value > 0:
             # Verifica previamente o valor do mutex para evitar aleatoriedade na escolha
             if pista.lista_ar and pista.lista_ar[-1] == self:  # Verifica se é a sua vez
-                tempo = time() - initial_time - self.time_created
-                if tempo >= 20:
-                    # Se avião tiver sido criado a 20 segundos ou mais
-                    self.pouso()
-                    return
-                elif len(pista.lista_ar) >= len(pista.lista_aeroporto):
-                    # Se o número de aviões no ar for maior ou igual aos do aeroporto
-                    self.pouso()
-                    return
+                    tempo = time() - initial_time - self.time_created
+                    if tempo > 20:
+                        # Se avião tiver sido criado a mais de 20 segundos
+                        self.pouso()
+                        return
+                    elif len(pista.lista_ar) >= len(pista.lista_aeroporto):
+                        # Se o número de aviões no ar for maior ou igual aos do aeroporto
+                        self.pouso()
+                        return
             elif pista.lista_aeroporto and pista.lista_aeroporto[-1] == self:
-                if len(pista.lista_ar) < len(pista.lista_aeroporto):
-                    if not pista.lista_ar:
-                        # Se não houver aviões no ar
-                        self.voo()
-                        return
-                    elif pista.lista_ar and (time() - initial_time - pista.lista_ar[-1].time_created) < 20:
-                        # Se houver mais aviões no aeroporto e nenhum criado a no mínimo 20 segundos no ar
-                        self.voo()
-                        return
+                    if len(pista.lista_ar) < len(pista.lista_aeroporto):
+                        if not pista.lista_ar:
+                            # Se não houver aviões no ar
+                            self.voo()
+                            return
+                        elif pista.lista_ar and (time() - initial_time - pista.lista_ar[-1].time_created) < 20:
+                            # Se houver mais aviões no aeroporto e nenhum criado a no mínimo 20 segundos no ar
+                            self.voo()
+                            return
             else:
                 self.turn.clear()
                 self.turn.wait()
@@ -71,7 +71,8 @@ class Aircraft:
 
     def pouso(self):
         pista.adquire_pista()
-        print("-----------------------------------\n{:.4f} - PISTA DE POUSO OCUPADA\n-----------------------------------".format(time() - initial_time))
+        t1 = time();
+        print("-----------------------------------\n{:.4f}s - PISTA DE POUSO OCUPADA\n-----------------------------------".format(time() - initial_time))
         pista.mutex_ar.acquire()
         self.final_time = (time() - initial_time)
         file.write('-' + self.__str__() + '\n')
@@ -83,14 +84,16 @@ class Aircraft:
                                                                                                 pista.avioes_do_ar,
                                                                                                 pista.avioes_do_aeroporto))
         pista.mutex_ar.release()
-        sleep(10)
-        print("-----------------------------------\n{:.4f} - PISTA DE POUSO LIBERADA\n-----------------------------------".format(time() - initial_time))
+        t = time()-t1;
+        sleep(10-t);
+        print("-----------------------------------\n{:.4f}s - PISTA DE POUSO LIBERADA\n-----------------------------------".format(time() - initial_time))
         pista.libera_pista()
         self.turn.set()
 
     def voo(self):
         pista.adquire_pista()
-        print("-----------------------------------\n{:.4f} - PISTA DE VOO OCUPADA\n-----------------------------------".format(time() - initial_time))
+        t1 = time();
+        print("-----------------------------------\n{:.4f}s - PISTA DE VOO OCUPADA\n-----------------------------------".format(time() - initial_time))
         pista.mutex_aeroporto.acquire()
         self.final_time = (time() - initial_time)
         file.write('-' + self.__str__() + '\n')
@@ -100,8 +103,9 @@ class Aircraft:
             len(pista.lista_aeroporto), pista.avioes_do_ar,
             pista.avioes_do_aeroporto))
         pista.mutex_aeroporto.release()
-        sleep(10)
-        print("-----------------------------------\n{:.4f} - PISTA DE VOO LIBERADA\n-----------------------------------".format(time() - initial_time))
+        t = time()-t1;
+        sleep(10-t);
+        print("-----------------------------------\n{:.4f}s - PISTA DE VOO LIBERADA\n-----------------------------------".format(time() - initial_time))
         pista.libera_pista()
         self.turn.set()
 
@@ -116,7 +120,7 @@ class Track:
         self.avioes_do_ar = 0  # Número de aviões criados no ar
         self.lista_aeroporto = []  # Fila de aviões no aeroporto
         self.lista_ar = []  # Fila de aviões no ar
-        self.limite_lista = 4  # Limite de aviões na fila
+        self.limite_lista = 3  # Limite de aviões na fila
 
     def adiciona_na_lista(self, aviao):
         if aviao.local == "Aeroporto":
@@ -124,7 +128,7 @@ class Track:
             self.avioes_do_aeroporto += 1
             self.lista_aeroporto.append(aviao)
             print(
-                "{:.4f} - Gerado no Aeroporto - Ar[{}] Aeroporto[{}] Total Ar/Aeroporto: {}/{}".format(
+                "{:.4f} - Gerado no Aeroporto - Fila Ar/Aeroporto [{}]/[{}] - Total Ar/Aeroporto: {}/{}".format(
                     time() - initial_time, len(pista.lista_ar),
                     len(pista.lista_aeroporto),
                     pista.avioes_do_ar,
@@ -154,6 +158,7 @@ class Track:
 
 
 def geradora():
+    # Gera aviões
     while pista.avioes_do_aeroporto < 10 or pista.avioes_do_ar < 10:
         # Gera avião
         if pista.avioes_do_aeroporto < 10 and pista.avioes_do_ar < 10:
@@ -164,7 +169,7 @@ def geradora():
             local_do_aviao = "Aeroporto"
 
         if (local_do_aviao == "Aeroporto" and len(pista.lista_aeroporto) < pista.limite_lista) \
-                or (local_do_aviao == "Ar" and len(pista.lista_ar) < pista.limite_lista):
+                or (local_do_aviao == "Ar"):
             aviao = Aircraft((time() - initial_time), local_do_aviao)
             pista.adiciona_na_lista(aviao)
             nova_thread = MyThread(t_avioes, (aviao,))
