@@ -1,22 +1,17 @@
 ---------- LOG DE EXECUÇÃO ----------
 
--Avião criado no Aeroporto aos 0.0156 segundos e removido aos 0.1003. Tempo total: 0.0847
--Avião criado no Ar aos 8.0878 segundos e removido aos 10.1378. Tempo total: 2.0500
--Avião criado no Aeroporto aos 16.1630 segundos e removido aos 20.2240. Tempo total: 4.0610
--Avião criado no Aeroporto aos 24.2444 segundos e removido aos 30.3033. Tempo total: 6.0589
--Avião criado no Aeroporto aos 32.3115 segundos e removido aos 40.3310. Tempo total: 8.0195
--Avião criado no Ar aos 40.3686 segundos e removido aos 50.4072. Tempo total: 10.0386
--Avião criado no Aeroporto aos 48.4169 segundos e removido aos 60.4873. Tempo total: 12.0704
--Avião criado no Ar aos 64.5581 segundos e removido aos 70.6112. Tempo total: 6.0531
--Avião criado no Ar aos 72.6020 segundos e removido aos 80.6983. Tempo total: 8.0964
--Avião criado no Aeroporto aos 56.4955 segundos e removido aos 90.7417. Tempo total: 34.2462
--Avião criado no Ar aos 80.7461 segundos e removido aos 100.9029. Tempo total: 20.1568
--Avião criado no Aeroporto aos 88.7986 segundos e removido aos 110.9817. Tempo total: 22.1831
--Avião criado no Ar aos 96.8837 segundos e removido aos 126.4034. Tempo total: 29.5197
--Avião criado no Aeroporto aos 104.9466 segundos e removido aos 136.4333. Tempo total: 31.4867
--Avião criado no Ar aos 129.1412 segundos e removido aos 146.5585. Tempo total: 17.4173
--Avião criado no Ar aos 137.1712 segundos e removido aos 156.5845. Tempo total: 19.4133
--Avião criado no Ar aos 145.2334 segundos e removido aos 166.6614. Tempo total: 21.4281
--Avião criado no Ar aos 153.2961 segundos e removido aos 182.8197. Tempo total: 29.5236
--Avião criado no Aeroporto aos 113.0010 segundos e removido aos 192.9570. Tempo total: 79.9560
--Avião criado no Aeroporto aos 121.0678 segundos e removido aos 203.0293. Tempo total: 81.9616
+-<Avião 1> criado no Aeroporto aos 0.0070 segundos e removido aos 0.0371. Tempo total: 0.0301
+-<Avião 2> criado no Ar aos 8.0484 segundos e removido aos 10.0933. Tempo total: 2.0449
+-<Avião 3> criado no Ar aos 16.1128 segundos e removido aos 20.1500. Tempo total: 4.0372
+-<Avião 4> criado no Ar aos 24.1386 segundos e removido aos 30.2108. Tempo total: 6.0721
+-<Avião 5> criado no Ar aos 32.1595 segundos e removido aos 40.2470. Tempo total: 8.0875
+-<Avião 6> criado no Ar aos 40.1818 segundos e removido aos 50.3042. Tempo total: 10.1224
+-<Avião 7> criado no Ar aos 48.2026 segundos e removido aos 60.3449. Tempo total: 12.1423
+-<Avião 8> criado no Ar aos 56.2254 segundos e removido aos 70.3976. Tempo total: 14.1722
+-<Avião 9> criado no Ar aos 64.2473 segundos e removido aos 80.4448. Tempo total: 16.1976
+-<Avião 10> criado no Ar aos 72.2681 segundos e removido aos 90.5066. Tempo total: 18.2385
+-<Avião 11> criado no Ar aos 80.2904 segundos e removido aos 100.5573. Tempo total: 20.2669
+-<Avião 12> criado no Aeroporto aos 88.3117 segundos e removido aos 110.6075. Tempo total: 22.2958
+-<Avião 13> criado no Aeroporto aos 96.3346 segundos e removido aos 120.6442. Tempo total: 24.3096
+-<Avião 14> criado no Aeroporto aos 104.3609 segundos e removido aos 130.7009. Tempo total: 26.3400
+-<Avião 15> criado no Aeroporto aos 112.3852 segundos e removido aos 140.7561. Tempo total: 28.3709
