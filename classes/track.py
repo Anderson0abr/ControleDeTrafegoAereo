@@ -5,6 +5,7 @@ class Track:
     mutex_aeroporto = threading.Semaphore(1)
     mutex_ar = threading.Semaphore(1)
     mutex_pista = threading.Semaphore(1)
+    turn = threading.Event()
 
     def __init__(self):
         self.avioes_do_aeroporto = 0  # Número de aviões criados no aeroportp

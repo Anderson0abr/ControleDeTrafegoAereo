@@ -17,8 +17,6 @@ from time import time, sleep
 
 
 class Aircraft:
-    turn = threading.Event()
-
     def __init__(self, _id, _time_created, _local):
         self.id = _id
         self.time_created = _time_created
@@ -64,64 +62,63 @@ class Aircraft:
                 tempo = time() - initial_time - self.time_created
                 if tempo > 20:
                     # Se avião tiver sido criado a mais de 20 segundos
+                    pista.turn.clear()
                     self.pouso()
                     return
                 elif len(pista.lista_ar) > len(pista.lista_aeroporto):
                     # Se o número de aviões no ar for maior ou igual aos do aeroporto
+                    pista.turn.clear()
                     self.pouso()
                     return
             elif pista.lista_aeroporto and pista.lista_aeroporto[-1] == self:
                 if len(pista.lista_ar) <= len(pista.lista_aeroporto):
                     if not pista.lista_ar:
                         # Se não houver aviões no ar
+                        pista.turn.clear()
                         self.voo()
                         return
                     elif pista.lista_ar and (time() - initial_time - pista.lista_ar[-1].time_created) < 20:
                         # Se houver mais aviões no aeroporto e nenhum criado a no mínimo 20 segundos no ar
+                        pista.turn.clear()
                         self.voo()
                         return
 
     def pouso(self):
         '''Bloqueia a pista, realiza o pouso e libera a pista'''
-        print("-" * 50)
-        print("{:.4f}s - <AVIÃO {}> OCUPANDO A PISTA PARA POUSO".format(time() - initial_time, self.id))
-        print("-" * 50)
+        print("-" * 50 + "\n{:.4f}s - <AVIÃO {}> OCUPANDO A PISTA PARA POUSO\n".format(time() - initial_time, self.id) + "-" * 50)
 
         pista.adquire_pista()
         pista.mutex_ar.acquire()
         self.final_time = (time() - initial_time)
-        self.status("remover")
         pista.lista_ar.pop()
+        self.status("remover")
         pista.mutex_ar.release()
         sleep(10)
         pista.libera_pista()
 
         file.write('-' + self.__str__() + '\n')
-        print("-" * 50)
-        print("{:.4f}s - <AVIÃO {}> LIBEROU A PISTA".format(time() - initial_time, self.id))
-        print("-" * 50)
+        print("-" * 50 + "\n{:.4f}s - <AVIÃO {}> LIBEROU A PISTA\n".format(time() - initial_time, self.id) + "-" * 50)
+
+        pista.turn.set()
 
 
     def voo(self):
         '''Bloqueia a pista, realiza o voo e libera a pista'''
-        print("-" * 50)
-        print("{:.4f}s - <AVIÃO {}> OCUPANDO A PISTA PARA VOO".format(time() - initial_time, self.id))
-        print("-" * 50)
+        print("-" * 50 + "\n{:.4f}s - <AVIÃO {}> OCUPANDO A PISTA PARA VOO\n".format(time() - initial_time, self.id) + "-" * 50)
 
         pista.adquire_pista()
         pista.mutex_aeroporto.acquire()
         self.final_time = (time() - initial_time)
-        self.status("remover")
         pista.lista_aeroporto.pop()
+        self.status("remover")
         pista.mutex_aeroporto.release()
         sleep(10)
         pista.libera_pista()
 
         file.write('-' + self.__str__() + '\n')
-        print("-" * 50)
-        print("{:.4f}s - <AVIÃO {}> LIBEROU A PISTA".format(time() - initial_time, self.id))
-        print("-" * 50)
+        print("-" * 50 + "\n{:.4f}s - <AVIÃO {}> LIBEROU A PISTA\n".format(time() - initial_time, self.id) + "-" * 50)
 
+        pista.turn.set()
 
 
 def geradora():
@@ -152,14 +149,19 @@ def t_avioes(t_aviao):
     '''Função base da thread do avião que o coloca em loop até que seja sua vez'''
     if t_aviao.local == "Aeroporto":
         while t_aviao in pista.lista_aeroporto:
+            if not pista.turn.is_set():
+                pista.turn.wait()
             t_aviao.verifica_proximo()
     else:
         while t_aviao in pista.lista_ar:
+            if not pista.turn.is_set():
+                pista.turn.wait()
             t_aviao.verifica_proximo()
 
 
 initial_time = time()  # Momento em que o programa iniciou
 pista = Track()  # Cria pista
+pista.turn.set()
 
 file = open("LOG.txt", 'w')  # Cria arquivo de log
 file.write("---------- LOG DE EXECUÇÃO ----------\n\n")
@@ -167,7 +169,7 @@ file.write("---------- LOG DE EXECUÇÃO ----------\n\n")
 thread_geradora = MyThread(geradora, ())  # Instancia thread geradora
 thread_geradora.start()  # Inicia thread geradora
 
-while pista.avioes_do_ar < 10 or pista.avioes_do_aeroporto < 10 or threading.active_count() > 2:
+while pista.avioes_do_ar < 10 or pista.avioes_do_aeroporto < 10 or len(pista.lista_ar) > 0 or len(pista.lista_aeroporto) > 0:
     pass
 
 print("\n{:.4f}: Fim da execução\n".format(time() - initial_time))
