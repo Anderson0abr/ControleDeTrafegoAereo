@@ -172,6 +172,7 @@ thread_geradora.start()  # Inicia thread geradora
 while pista.avioes_do_ar < 10 or pista.avioes_do_aeroporto < 10 or len(pista.lista_ar) > 0 or len(pista.lista_aeroporto) > 0:
     pass
 
+sleep(10)
 print("\n{:.4f}: Fim da execução\n".format(time() - initial_time))
 print("Nenhum avião foi derrubado durante o desenvolvimento desse programa")  # Mensagem importante
 
