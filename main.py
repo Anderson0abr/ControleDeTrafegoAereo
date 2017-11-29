@@ -6,6 +6,9 @@ Controle de tráfego aéreo
 Projeto da disciplina de Programação Paralela e Concorrente da Universidade Estadual do Ceará (UECE)
 Semestre 2016.2
 http://marcial.larces.uece.br/cursos/programacao-concorrente-e-paralela-2016-2/problema-controle-de-trafego-aereo
+
+Desenvolvido por: Anderson Bezerra Ribeiro
+Data: 08/06/2017
 """
 
 import threading
